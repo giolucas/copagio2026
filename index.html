@@ -15,13 +15,13 @@
 <body>
   <div id="root"></div>
 
-  <script type="text/babel">
+  <script type="text/plain" id="app-source">
     const { useState, useMemo } = React;
 
     const FLAG = {
       "México": "🇲🇽", "África do Sul": "🇿🇦", "Coreia do Sul": "🇰🇷", "Tchéquia": "🇨🇿",
       "Suíça": "🇨🇭", "Catar": "🇶🇦", "Brasil": "🇧🇷", "Marrocos": "🇲🇦",
-      "Escócia": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "Haiti": "🇭🇹", "Estados Unidos": "🇺🇸", "Paraguai": "🇵🇾",
+      "Escócia": "🇬🇧", "Haiti": "🇭🇹", "Estados Unidos": "🇺🇸", "Paraguai": "🇵🇾",
       "Alemanha": "🇩🇪", "Curaçao": "🇨🇼", "Costa do Marfim": "🇨🇮", "Equador": "🇪🇨",
       "Holanda": "🇳🇱", "Japão": "🇯🇵", "Espanha": "🇪🇸", "Cabo Verde": "🇨🇻",
       "Uruguai": "🇺🇾", "Arábia Saudita": "🇸🇦", "Bélgica": "🇧🇪", "Egito": "🇪🇬",
@@ -271,6 +271,15 @@
     };
 
     ReactDOM.createRoot(document.getElementById("root")).render(<Copa2026 />);
+  </script>
+  <script>
+    var src = document.getElementById('app-source').textContent;
+    var output = Babel.transform(src, {
+      presets: [["react", { runtime: "classic" }]]
+    }).code;
+    var script = document.createElement('script');
+    script.text = output;
+    document.body.appendChild(script);
   </script>
 </body>
 </html>
